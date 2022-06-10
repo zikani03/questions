@@ -25,7 +25,7 @@ public interface ComplaintsDAO {
         filedById integer not null,
         isResolved boolean not null default false,
         filedOn date not null,
-        resolved_on date null,
+        resolvedOn date null,
         createdAt timestamp not null,
         updatedAt timestamp not null
     );
@@ -34,28 +34,28 @@ public interface ComplaintsDAO {
     """)
     void createTable();
 
-    @SqlQuery("SELECT id, description, areas, assigned_to_id, filedById, isresolved, filedOn, resolved_on, createdAt, updatedAt FROM complaints")
+    @SqlQuery("SELECT id, description, areas, filedById, isresolved, filedOn, resolvedOn, createdAt, updatedAt FROM complaints")
     List<ComplaintsEntity> findAll();
 
-    @SqlQuery("SELECT id, description, areas, assigned_to_id, filedById, isresolved, filedOn, resolved_on, createdAt, updatedAt FROM complaints OFFSET :offset LIMIT :limit")
+    @SqlQuery("SELECT id, description, areas, filedById, isresolved, filedOn, resolved_on, createdAt, updatedAt FROM complaints OFFSET :offset LIMIT :limit")
     List<ComplaintsEntity> findAllPaginated(@Bind("limit") int limit, @Bind("offset") int offset);
 
-    @SqlQuery("SELECT id, description, areas, assigned_to_id, filedById, isresolved, filedOn, resolved_on, createdAt, updatedAt FROM complaints WHERE id = ?")
+    @SqlQuery("SELECT id, description, areas, filedById, isresolved, filedOn, resolvedOn, createdAt, updatedAt FROM complaints WHERE id = ?")
     Optional<ComplaintsEntity> findById(@Bind long id);
 
-    @SqlUpdate("INSERT INTO complaints (description, areas, assigned_to_id, filedById, isresolved, filedOn, resolved_on, createdAt, updatedAt) VALUES (:e.description,:e.areas,:e.assignedToID,:e.filedBy,:e.isresolved,:e.filedOn,:e.resolvedOn,:e.createdAt,:e.updatedAt) RETURNING id")
+    @SqlUpdate("INSERT INTO complaints (description, areas, filedById, isresolved, filedOn, resolved_on, createdAt, updatedAt) VALUES (:e.description,:e.areas, :e.filedBy,:e.isresolved,:e.filedOn,:e.resolvedOn,:e.createdAt,:e.updatedAt) RETURNING id")
     void insert(@BindBean("e") ComplaintsEntity entity);
 
-    @SqlUpdate("UPDATE complaints SET description = :e.description, areas = :e.areas, assigned_to_id = :e.assignedToID, filedById = :e.filedBy, isresolved = :e.isresolved, filedOn = :e.filedOn, resolved_on = :e.resolvedOn, createdAt = :e.createdAt, updatedAt = :e.updatedAt WHERE id = :e.id")
+    @SqlUpdate("UPDATE complaints SET description = :e.description, areas = :e.areas, filedById = :e.filedBy, isresolved = :e.isresolved, filedOn = :e.filedOn, resolved_on = :e.resolvedOn, createdAt = :e.createdAt, updatedAt = :e.updatedAt WHERE id = :e.id")
     void update(@BindBean("e") ComplaintsEntity entity);
 
     @SqlUpdate("DELETE FROM complaints WHERE id = ?")
     void delete(@Bind long id);
 
-    @SqlQuery("SELECT id, description, areas, assigned_to_id, filedById, isresolved, filedOn, resolved_on, createdAt, updatedAt FROM complaints WHERE filedById = :filer")
+    @SqlQuery("SELECT id, description, areas, filedById, isresolved, filedOn, resolved_on, createdAt, updatedAt FROM complaints WHERE filedById = :filer")
     List<ComplaintsEntity> findAllFiledBy(@Bind("filer") long id);
 
-    @SqlQuery("SELECT id, description, areas, assigned_to_id, filedById, isresolved, filedOn, resolved_on, createdAt, updatedAt FROM complaints WHERE <column> = :query OR <column> LIKE query")
+    @SqlQuery("SELECT id, description, areas, filedById, isresolved, filedOn, resolved_on, createdAt, updatedAt FROM complaints WHERE <column> = :query OR <column> LIKE :query")
     List<ComplaintsEntity> findUsing(@Define("column") String column, @Bind("query") String value);
 }
 

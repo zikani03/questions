@@ -42,7 +42,7 @@ public interface PersonDAO {
     @SqlUpdate("UPDATE people SET firstName = :e.firstName, lastName = :e.lastName, dateOfBirth = :e.dateOfBirth, phone = :e.phone, createdAt = :e.createdAt, updatedAt = :e.updatedAt WHERE id = :e.id")
     void update(@BindBean("e") PersonEntity entity);
 
-    @SqlQuery("SELECT id, firstName, lastName, dateOfBirth, phone, createdAt, updatedAt FROM people WHERE <column> = :query OR <column> LIKE query")
+    @SqlQuery("SELECT id, firstName, lastName, dateOfBirth, phone, createdAt, updatedAt FROM people WHERE <column> = :query OR <column> LIKE :query")
     List<PersonEntity> findUsing(@Define("column") String column, @Bind("query") String value);
 
     @SqlUpdate("DELETE FROM people WHERE id = ?")
