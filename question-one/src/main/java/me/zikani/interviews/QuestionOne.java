@@ -30,7 +30,7 @@ public class QuestionOne {
         Spark.get("/complaints/search", new SearchComplaintsRoute(complaintsDAO, peopleDAO));
 
         Spark.get("/people", new ListPersonRoute(complaintsDAO, peopleDAO));
-        Spark.get("/people/search", new SearchPeopleRoute(complaintsDAO, peopleDAO));
+        Spark.get("/people/search", new SearchPersonRoute(complaintsDAO, peopleDAO));
         Spark.post("/people/new", new NewPersonRoute(complaintsDAO, peopleDAO));
         Spark.post("/people/bulk/new", new NewPeopleListRoute(complaintsDAO, peopleDAO));
     }

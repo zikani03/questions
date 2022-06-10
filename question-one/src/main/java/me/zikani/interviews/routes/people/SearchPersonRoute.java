@@ -10,14 +10,14 @@ import spark.Response;
 
 import java.util.List;
 
-public class UpdatePersonRoute extends AbstractRoute {
-    public UpdatePersonRoute(ComplaintsDAO complaintsDAO, PersonDAO personDAO) {
+public class SearchPersonRoute extends AbstractRoute {
+    public SearchPersonRoute(ComplaintsDAO complaintsDAO, PersonDAO personDAO) {
         super(complaintsDAO, personDAO);
     }
 
     @Override
     public Object handle(Request request, Response response) throws Exception {
-        String column = request.queryParams("t");
+        String column = request.queryParams("field");
         String value = request.queryParams("s");
         try {
             List<PersonEntity> people = personDAO.findUsing(column, value);

@@ -19,7 +19,7 @@ public class SearchComplaintsRoute extends AbstractRoute {
 
     @Override
     public Object handle(Request request, Response response) throws Exception {
-        String column = request.queryParams("t");
+        String column = request.queryParams("field");
         String value = request.queryParams("s");
         try {
             List<ComplaintsEntity> complaints = complaintsDAO.findUsing(column, value);
